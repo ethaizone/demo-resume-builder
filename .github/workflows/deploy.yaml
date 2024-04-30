@@ -29,8 +29,8 @@ jobs:
           cache: 'pnpm'
       - name: Install dependencies
         run: pnpm install
-      - name: 'Build'
-        run: pnpm build
+      - name: 'Build for GH Pages'
+        run: pnpm build-gh-pages
       - name: 'Upload'
         uses: actions/upload-pages-artifact@v3.0.1
         with:
