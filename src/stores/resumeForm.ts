@@ -1,23 +1,70 @@
-import merge from 'lodash.merge'
+import cloneDeep from 'lodash.clonedeep'
 import { defineStore } from 'pinia'
 import type { ResumeType } from '@/resume/types'
 import { createEmptyResume } from '@/resume/utils'
+import exampleData from '@/resume/exampleData/example.json'
+import { mergeDeepButReplaceArray } from './utils'
 
+type PersistStoreType = { key: string, form: ResumeType }[]
+
+// Load from localStorage
+const persistStore: PersistStoreType = JSON.parse(localStorage.getItem('resumeForm') || '[]')
+if (persistStore.length === 0) {
+  persistStore.push({ key: 'example', form: cloneDeep(exampleData) })
+}
+
+function getUniqueResumeKey() {
+  return String(Math.floor(Date.now() / 1000))
+}
 
 export const useResumeForm = defineStore('resumeForm', {
   state: () => ({
-    resumeForm: createEmptyResume(),
+    persistStore,
+    resumeKey: '',
+    resumeForm: {} as ResumeType,
     selectedIndex: {
       expeience: 0,
       education: 0,
     }
   }),
   actions: {
-    loadResume(resume: ResumeType) {
-      merge(this.resumeForm, resume)
+    createNewForm() {
+      this.resumeKey = getUniqueResumeKey()
+      mergeDeepButReplaceArray(this.resumeForm, createEmptyResume())
+      this.selectedIndex = {
+        expeience: 0,
+        education: 0,
+      }
+    },
+    saveToStore() {
+      localStorage.setItem('resumeForm', JSON.stringify(this.persistStore))
+    },
+    loadResumeFromData(resume: ResumeType) {
+      mergeDeepButReplaceArray(this.resumeForm, resume)
 
       this.selectedIndex.expeience = 0
       this.selectedIndex.education = 0
+    },
+    loadResumeByKey(key: string) {
+      const exists = this.persistStore.find(x => x.key === key)
+      if (exists) {
+        this.resumeKey = exists.key
+        mergeDeepButReplaceArray(this.resumeForm, cloneDeep(exists.form))
+      }
+    },
+    saveResume() {
+      if (!this.resumeKey) this.resumeKey = getUniqueResumeKey()
+
+      const exists = this.persistStore.find(x => x.key === this.resumeKey)
+      if (exists) {
+        exists.form = cloneDeep(this.resumeForm)
+      } else {
+        this.persistStore.push({ key: this.resumeKey, form: cloneDeep(this.resumeForm) })
+      }
+
+      this.saveToStore()
+
+      alert('Saved')
     },
 
     addNewExperience() {

@@ -62,25 +62,12 @@
               <option value="university">University</option>
               <option value="school">School</option>
             </select>
-
             <input
               type="text"
-              name="edu-university"
-              id="edu-university"
+              name="edu-institute"
+              id="edu-institute"
               class="h-10 border rounded px-4 bg-gray-50 flex-auto"
-              v-model="resumeForm.education[selectedIndex.education].university"
-              placeholder="Univertity Name"
-              v-if="instituteType === 'university'"
-            />
-
-            <input
-              type="text"
-              name="edu-school"
-              id="edu-school"
-              class="h-10 border rounded px-4 bg-gray-50 flex-auto"
-              v-model="resumeForm.education[selectedIndex.education].school"
-              placeholder="School Name"
-              v-if="instituteType === 'school'"
+              v-model="institute"
             />
           </div>
         </div>
@@ -133,23 +120,42 @@
 import { useResumeForm } from '@/stores/resumeForm'
 import { ref, watch } from 'vue'
 
-const { resumeForm, selectedIndex, addNewEducation, removeEducation, $subscribe } = useResumeForm()
+const store = useResumeForm()
+const { resumeForm, selectedIndex, addNewEducation, removeEducation, $subscribe } = store
 
-const instituteType = ref<'school' | 'university' | undefined>()
-
-watch(instituteType, () => {
-  if (instituteType.value === 'school') {
-    resumeForm.education[selectedIndex.education].university = ''
-  } else if (instituteType.value === 'university') {
-    resumeForm.education[selectedIndex.education].school = ''
+function getCurrentInstituteType() {
+  if (resumeForm.education[selectedIndex.education]?.school) {
+    return 'school'
   }
+  if (resumeForm.education[selectedIndex.education]?.university) {
+    return 'university'
+  }
+}
+
+function getCurrentInstitute() {
+  return (
+    resumeForm.education[selectedIndex.education]?.university ??
+    resumeForm.education[selectedIndex.education]?.school ??
+    ''
+  )
+}
+
+const instituteType = ref<'school' | 'university' | undefined>(getCurrentInstituteType())
+const institute = ref<string>(getCurrentInstitute())
+
+$subscribe(() => {
+  instituteType.value = getCurrentInstituteType()
+  institute.value = getCurrentInstitute()
 })
 
-$subscribe((mutation, state) => {
-  if (state.resumeForm.education[state.selectedIndex.education].school) {
-    instituteType.value = 'school'
-  } else {
-    instituteType.value = 'university'
+watch(institute, () => {
+  if (instituteType.value === 'university') {
+    resumeForm.education[selectedIndex.education].university = institute.value
+    resumeForm.education[selectedIndex.education].school = undefined
+  }
+  if (instituteType.value === 'school') {
+    resumeForm.education[selectedIndex.education].school = institute.value
+    resumeForm.education[selectedIndex.education].university = undefined
   }
 })
 </script>
