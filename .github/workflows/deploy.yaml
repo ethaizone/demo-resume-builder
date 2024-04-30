@@ -1,0 +1,30 @@
+name: Deploy
+
+permissions:
+  id-token: write
+  pages: write
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push events but only for the "main" branch
+  push:
+    branches: ['main']
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  deploy-gh-pages:
+    name: Deploy to github page
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Install'
+        uses: ./.github/workflows/pr.yaml
+      - name: 'Build'
+        run: pnpm build
+      - name: 'Upload'
+        uses: actions/upload-pages-artifact@v3.0.1
+        with:
+          path: 'dist'
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v4
