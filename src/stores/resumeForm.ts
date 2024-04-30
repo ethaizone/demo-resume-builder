@@ -10,7 +10,10 @@ type PersistStoreType = { key: string, form: ResumeType }[]
 // Load from localStorage
 const persistStore: PersistStoreType = JSON.parse(localStorage.getItem('resumeForm') || '[]')
 if (persistStore.length === 0) {
-  persistStore.push({ key: 'example', form: cloneDeep(exampleData) })
+  const firstData = cloneDeep(exampleData)
+  firstData.firstName = ['Mark', 'Jack', 'Jane'][Math.floor(Math.random() * 3)]
+  firstData.lastName = ['Smith', 'Doe', 'Johnson'][Math.floor(Math.random() * 3)]
+  persistStore.push({ key: 'example', form: firstData })
 }
 
 function getUniqueResumeKey() {
@@ -27,6 +30,9 @@ export const useResumeForm = defineStore('resumeForm', {
       education: 0,
     }
   }),
+  getters: {
+    getResumeByPersistKey: (state) => (key: string) => state.persistStore.find(x => x.key === key)?.form,
+  },
   actions: {
     createNewForm() {
       this.resumeKey = getUniqueResumeKey()
