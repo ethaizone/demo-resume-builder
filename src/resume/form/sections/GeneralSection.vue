@@ -6,7 +6,7 @@
       name="firstName"
       id="firstName"
       class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-      v-model="candidate.firstName"
+      v-model="resumeForm.firstName"
       required
     />
   </div>
@@ -18,7 +18,7 @@
       name="lastName"
       id="lastName"
       class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-      v-model="candidate.lastName"
+      v-model="resumeForm.lastName"
       required
     />
   </div>
@@ -30,7 +30,7 @@
       name="email"
       id="email"
       class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-      v-model="candidate.email"
+      v-model="resumeForm.email"
       required
     />
   </div>
@@ -42,7 +42,7 @@
       name="phone"
       id="phone"
       class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-      v-model="candidate.phoneNumber"
+      v-model="resumeForm.phoneNumber"
     />
   </div>
 
@@ -53,7 +53,7 @@
       name="address"
       id="address"
       class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-      v-model="candidate.address"
+      v-model="resumeForm.address"
     />
   </div>
 
@@ -64,7 +64,7 @@
       name="linkedin"
       id="linkedin"
       class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-      v-model="candidate.linkedin"
+      v-model="resumeForm.linkedin"
     />
   </div>
   <div class="md:col-span-8">
@@ -74,7 +74,7 @@
       name="description"
       id="description"
       class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-      v-model="candidate.description"
+      v-model="resumeForm.description"
     />
   </div>
 </template>
@@ -82,5 +82,5 @@
 <script setup lang="ts">
 import { useResumeForm } from '@/stores/resumeForm'
 
-const { candidate } = useResumeForm()
+const { resumeForm } = useResumeForm()
 </script>

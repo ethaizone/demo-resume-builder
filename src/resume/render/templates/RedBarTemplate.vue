@@ -124,7 +124,7 @@
 </template>
 
 <script setup lang="ts">
-import type { ResumeType } from '@/candidate/types'
+import type { ResumeType } from '@/resume/types'
 
 const { resume } = defineProps<{
   resume: ResumeType

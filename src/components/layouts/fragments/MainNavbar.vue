@@ -4,7 +4,7 @@
       <!-- left navbar -->
       <div class="flex gap-2">
         <div class="sidebar-menu-item">
-          <span class="text-gray-700">Home</span>
+          <span class="text-gray-700">Manage Resume</span>
         </div>
 
         <RouterLink to="/print/preview">

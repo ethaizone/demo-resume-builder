@@ -3,7 +3,7 @@
     <p class="font-medium text-sm">Certifications</p>
     <div
       class="flex gap-4 mb-2"
-      v-for="(certification, index) in candidate.certifications"
+      v-for="(certification, index) in resumeForm.certifications"
       :key="index"
     >
       <input
@@ -20,7 +20,7 @@
       />
       <button
         class="bg-red-500 hover:bg-red-700 text-white font-bold px-4 rounded w-1/6"
-        @click.prevent="candidate.certifications.splice(index, 1)"
+        @click.prevent="resumeForm.certifications.splice(index, 1)"
       >
         Remove
       </button>
@@ -40,9 +40,9 @@
 <script setup lang="ts">
 import { useResumeForm } from '@/stores/resumeForm'
 
-const { candidate } = useResumeForm()
+const { resumeForm } = useResumeForm()
 
 function addNewCertification() {
-  candidate.certifications.push({ name: '', date: '' })
+  resumeForm.certifications.push({ name: '', date: '' })
 }
 </script>

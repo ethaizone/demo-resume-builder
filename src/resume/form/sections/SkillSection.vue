@@ -1,7 +1,7 @@
 <template>
   <div class="md:col-span-8">
     <p class="font-medium text-sm">Skills</p>
-    <div class="flex gap-4 mb-2" v-for="(skill, index) in candidate.skills" :key="index">
+    <div class="flex gap-4 mb-2" v-for="(skill, index) in resumeForm.skills" :key="index">
       <input
         type="text"
         class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
@@ -18,7 +18,7 @@
       />
       <button
         class="bg-red-500 hover:bg-red-700 text-white font-bold px-4 rounded w-1/6"
-        @click.prevent="candidate.skills.splice(index, 1)"
+        @click.prevent="resumeForm.skills.splice(index, 1)"
       >
         Remove
       </button>
@@ -38,9 +38,9 @@
 <script setup lang="ts">
 import { useResumeForm } from '@/stores/resumeForm'
 
-const { candidate } = useResumeForm()
+const { resumeForm } = useResumeForm()
 
 function addNewSkill() {
-  candidate.skills.push({ name: '', score: 0 })
+  resumeForm.skills.push({ name: '', score: 0 })
 }
 </script>

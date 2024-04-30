@@ -2,7 +2,7 @@ import { describe, it, expect } from 'vitest'
 
 import { mount } from '@vue/test-utils'
 import ResumeDisplay from '../ResumeDisplay.vue'
-import resume from '@/candidate/exampleData/example.json'
+import resume from '@/resume/exampleData/example.json'
 import { availableTemplates } from '../templates'
 
 describe('ResumeDisplay', () => {

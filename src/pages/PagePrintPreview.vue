@@ -6,7 +6,7 @@
 
 <script setup lang="ts">
 import ResumeDisplay from '@/resume/render/ResumeDisplay.vue'
-import resume from '@/candidate/exampleData/example.json'
+import resume from '@/resume/exampleData/example.json'
 
 import { parseQuery } from 'vue-router'
 import { parseTemplateName } from '@/resume/render/templates'

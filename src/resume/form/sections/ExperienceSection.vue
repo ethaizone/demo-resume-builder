@@ -5,9 +5,9 @@
       <select
         class="px-4 outline-none text-gray-800 h-10 bg-gray-50 border border-gray-200 rounded"
         v-model="selectedIndex.expeience"
-        v-if="candidate.experiences[selectedIndex.expeience]"
+        v-if="resumeForm.experiences[selectedIndex.expeience]"
       >
-        <option v-for="(exp, index) in candidate.experiences" :key="index" :value="index">
+        <option v-for="(exp, index) in resumeForm.experiences" :key="index" :value="index">
           {{ index + 1 }}. {{ exp.title }}
         </option>
       </select>
@@ -20,7 +20,7 @@
       <button
         class="bg-red-500 hover:bg-red-700 text-white font-bold px-2 rounded"
         @click.prevent="removeExperience"
-        v-if="candidate.experiences[selectedIndex.expeience]"
+        v-if="resumeForm.experiences[selectedIndex.expeience]"
       >
         Remove
       </button>
@@ -28,7 +28,7 @@
 
     <fieldset
       class="border border-gray-300 rounded p-2 mt-3"
-      v-if="candidate.experiences[selectedIndex.expeience]"
+      v-if="resumeForm.experiences[selectedIndex.expeience]"
     >
       <div class="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-8">
         <div class="md:col-span-4">
@@ -38,7 +38,7 @@
             name="exp-title"
             id="exp-title"
             class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-            v-model="candidate.experiences[selectedIndex.expeience].title"
+            v-model="resumeForm.experiences[selectedIndex.expeience].title"
             required
           />
         </div>
@@ -49,7 +49,7 @@
             name="exp-company"
             id="exp-company"
             class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-            v-model="candidate.experiences[selectedIndex.expeience].company"
+            v-model="resumeForm.experiences[selectedIndex.expeience].company"
           />
         </div>
         <div class="md:col-span-4">
@@ -59,7 +59,7 @@
             name="exp-location"
             id="exp-location"
             class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-            v-model="candidate.experiences[selectedIndex.expeience].location"
+            v-model="resumeForm.experiences[selectedIndex.expeience].location"
           />
         </div>
         <div class="md:col-span-8">
@@ -69,7 +69,7 @@
             name="exp-description"
             id="exp-description"
             class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-            v-model="candidate.experiences[selectedIndex.expeience].description"
+            v-model="resumeForm.experiences[selectedIndex.expeience].description"
           />
         </div>
         <div class="md:col-span-4">
@@ -79,7 +79,7 @@
             name="exp-startDate"
             id="exp-startDate"
             class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-            v-model="candidate.experiences[selectedIndex.expeience].startDate"
+            v-model="resumeForm.experiences[selectedIndex.expeience].startDate"
           />
         </div>
         <div class="md:col-span-4">
@@ -89,7 +89,7 @@
             name="exp-endDate"
             id="exp-endDate"
             class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-            v-model="candidate.experiences[selectedIndex.expeience].endDate"
+            v-model="resumeForm.experiences[selectedIndex.expeience].endDate"
           />
         </div>
       </div>
@@ -100,5 +100,5 @@
 <script setup lang="ts">
 import { useResumeForm } from '@/stores/resumeForm'
 
-const { candidate, selectedIndex, addNewExperience, removeExperience } = useResumeForm()
+const { resumeForm, selectedIndex, addNewExperience, removeExperience } = useResumeForm()
 </script>

@@ -4,7 +4,7 @@
       <div class="bg-white rounded shadow-lg p-4 px-4 md:p-8 mb-6">
         <div class="grid gap-4 gap-y-2 text-sm">
           <div class="text-gray-600">
-            <p class="font-medium text-lg">Candidate Details</p>
+            <p class="font-medium text-lg">Resume Details</p>
             <p>Please fill out all the fields.</p>
           </div>
 
@@ -45,7 +45,7 @@
 </template>
 
 <script setup lang="ts">
-import exampleData from '@/candidate/exampleData/example.json'
+import exampleData from '@/resume/exampleData/example.json'
 import { useResumeForm } from '@/stores/resumeForm'
 import ExperienceSection from '@/resume/form/sections/ExperienceSection.vue'
 import GeneralSection from '@/resume/form/sections/GeneralSection.vue'

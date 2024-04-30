@@ -3,7 +3,7 @@
 </template>
 
 <script setup lang="ts">
-import type { ResumeType } from '@/candidate/types'
+import type { ResumeType } from '@/resume/types'
 import { templates, type TemplateName } from './templates'
 
 const { resume, template } = defineProps<{
